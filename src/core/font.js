@@ -12,6 +12,7 @@ const baseFonts = [
   { key: 'Courier New', title: 'Courier New' },
   { key: 'Verdana', title: 'Verdana' },
   { key: 'Lato', title: 'Lato' },
+  { key: 'Roboto', title: 'Roboto' },
 ];
 
 /** default fontSize list
