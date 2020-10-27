@@ -15,7 +15,6 @@ function renderCell(left, top, width, height, color, selected = false) {
   style += `top:${top}px;`;
   style += `width:${width}px;`;
   style += `height:${height}px;`;
-  style += `border:${color} 2px dashed;`;
   if (selected) {
     style += `background:rgba(101, 101, 101, 0.1);`;
   }
