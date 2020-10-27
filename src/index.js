@@ -5,18 +5,21 @@ import Sheet from './component/sheet';
 import Bottombar from './component/bottombar';
 import { cssPrefix } from './config';
 import { locale } from './locale/locale';
+import helper from './core/helper';
+import defaultSettings from './defaultSettings';
 import './index.less';
 
 
 class Spreadsheet {
   constructor(selectors, options = {}) {
     let targetEl = selectors;
-    this.options = options;
+    this.options = helper.merge(defaultSettings, options);
     this.sheetIndex = 1;
     this.datas = [];
     if (typeof selectors === 'string') {
       targetEl = document.querySelector(selectors);
     }
+
     this.bottombar = new Bottombar(() => {
       const d = this.addSheet();
       this.sheet.resetData(d);
@@ -28,13 +31,16 @@ class Spreadsheet {
     }, (index, value) => {
       this.datas[index].name = value;
     });
+
     this.data = this.addSheet();
     const rootEl = h('div', `${cssPrefix}`)
       .on('contextmenu', evt => evt.preventDefault());
     // create canvas element
     targetEl.appendChild(rootEl.el);
     this.sheet = new Sheet(rootEl, this.data);
-    rootEl.child(this.bottombar.el);
+    if (this.options.showBottomBar) {
+      rootEl.child(this.bottombar.el);
+    }
   }
 
   addSheet(name, active = true) {

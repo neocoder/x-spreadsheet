@@ -1,5 +1,3 @@
-/* global document */
-
 import Selector from './selector';
 import Scroll from './scroll';
 import History from './history';
@@ -68,42 +66,6 @@ import { t } from '../locale/locale';
  *  }
  * }
  */
-const defaultSettings = {
-  mode: 'edit', // edit | read
-  view: {
-    height: () => document.documentElement.clientHeight,
-    width: () => document.documentElement.clientWidth,
-  },
-  showGrid: true,
-  showToolbar: true,
-  showContextmenu: true,
-  row: {
-    len: 100,
-    height: 25,
-  },
-  col: {
-    len: 26,
-    width: 100,
-    indexWidth: 60,
-    minWidth: 60,
-  },
-  style: {
-    bgcolor: '#ffffff',
-    align: 'left',
-    valign: 'middle',
-    textwrap: false,
-    strike: false,
-    underline: false,
-    color: '#0a0a0a',
-    font: {
-      name: 'Roboto',
-      size: 10,
-      bold: false,
-      italic: false,
-    },
-    format: 'normal',
-  },
-};
 
 const toolbarHeight = 41;
 const bottombarHeight = 41;
@@ -323,8 +285,8 @@ function getCellColByX(x, scrollOffsetx) {
 }
 
 export default class DataProxy {
-  constructor(name, settings) {
-    this.settings = helper.merge(defaultSettings, settings || {});
+  constructor(name, settings = {}) {
+    this.settings = settings;
     // save data begin
     this.name = name || 'sheet';
     this.freeze = [0, 0];
