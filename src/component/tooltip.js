@@ -1,4 +1,4 @@
-/* global document */
+/* global document, window */
 import { h } from './element';
 import { bind } from './event';
 import { cssPrefix } from '../config';
@@ -14,8 +14,10 @@ export default function tooltip(html, target) {
   document.body.appendChild(el.el);
   const elBox = el.box();
   // console.log('elBox:', elBox);
-  el.css('left', `${left + (width / 2) - (elBox.width / 2)}px`)
-    .css('top', `${top + height + 2}px`);
+  const tooltipLeft = left + (width / 2) - (elBox.width / 2) + window.scrollX;
+  const tooltipTop = top + height + 2 + window.scrollY;
+  el.css('left', `${tooltipLeft}px`)
+    .css('top', `${tooltipTop}px`);
 
   bind(target, 'mouseleave', () => {
     if (document.body.contains(el.el)) {
