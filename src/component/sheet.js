@@ -1,4 +1,4 @@
-/* global window */
+/* global window, document */
 import { h } from './element';
 import { bind, mouseMoveUp, bindTouch } from './event';
 import { t } from '../locale/locale';
@@ -715,8 +715,19 @@ function sheetInitEvents() {
     this.reload();
   });
 
+  const disableBrowserBackspaceHandler = (e) => {
+    if (e.keyCode === 8) {
+      e.preventDefault();
+    }
+  };
+
   bind(window, 'click', (evt) => {
     this.focusing = overlayerEl.contains(evt.target);
+    if (this.focusing) {
+      document.addEventListener('keydown', disableBrowserBackspaceHandler);
+    } else {
+      document.removeEventListener('keydown', disableBrowserBackspaceHandler);
+    }
   });
 
   bind(window, 'paste', (evt) => {
