@@ -347,6 +347,8 @@ export default class DataProxy {
     this.exceptRowSet = new Set();
     this.sortedRowMap = new Map();
     this.unsortedRowMap = new Map();
+    this.currentEditRowIdx = null;
+    this.currentEditColIdx = null;
   }
 
   addValidation(mode, ref, validator) {
@@ -460,9 +462,9 @@ export default class DataProxy {
     if (ri < 0) nri = rows.len - 1;
     if (ci < 0) nci = cols.len - 1;
     if (nri > cri) [sri, eri] = [cri, nri];
-    else[sri, eri] = [nri, cri];
+    else [sri, eri] = [nri, cri];
     if (nci > cci) [sci, eci] = [cci, nci];
-    else[sci, eci] = [nci, cci];
+    else [sci, eci] = [nci, cci];
     selector.range = merges.union(new CellRange(
       sri, sci, eri, eci,
     ));
@@ -931,14 +933,30 @@ export default class DataProxy {
     return this.getCellStyleOrDefault(ri, ci);
   }
 
+  isStartEditing(rowIdx, colIdx) {
+    if (this.currentEditRowIdx === null && this.currentEditColIdx === null) {
+      this.currentEditRowIdx = rowIdx;
+      this.currentEditColIdx = colIdx;
+      return true;
+    }
+    return false;
+  }
+
+  stopEditing() {
+    this.currentEditRowIdx = null;
+    this.currentEditColIdx = null;
+  }
+
   // state: input | finished
   setCellText(ri, ci, text, state) {
     const { rows, history, validations } = this;
     if (state === 'finished') {
-      rows.setCellText(ri, ci, '');
-      history.add(this.getData());
       rows.setCellText(ri, ci, text);
+      this.stopEditing();
     } else {
+      if (this.isStartEditing()) {
+        history.add(this.getData());
+      }
       rows.setCellText(ri, ci, text);
       this.change(this.getData());
     }
