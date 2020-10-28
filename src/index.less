@@ -74,6 +74,10 @@ body {
   }
 }
 
+body.@{css-prefix}-no-z-context .@{css-prefix} {
+	z-index: auto;
+}
+
 .@{css-prefix}-sheet {
   position: relative;
   overflow: hidden;
@@ -681,7 +685,7 @@ body {
 }
 
 .@{css-prefix}-print {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   z-index: 100;
@@ -719,7 +723,12 @@ body {
     flex: 0 0 300px;
     width: 300px;
     border-left: 2px solid #ccc;
-    background: #fff;
+		background: #fff;
+		padding: 10px;
+
+		fieldset {
+			margin-bottom: 10px;
+		}
   }
 
   .-content {

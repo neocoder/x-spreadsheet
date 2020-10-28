@@ -170,10 +170,12 @@ export default class Print {
       yoffset += yo;
       this.contentEl.child(h('div', `${cssPrefix}-canvas-card-wraper`).child(wrap.child(canvas)));
     }
+    document.body.classList.add(`${cssPrefix}-no-z-context`);
     this.el.show();
   }
 
   toPrint() {
+    document.body.classList.remove(`${cssPrefix}-no-z-context`);
     this.el.hide();
     const { paper } = this;
     const iframe = h('iframe', '').hide();
@@ -185,7 +187,7 @@ export default class Print {
     style.innerHTML = `
       @page { size: ${paper.width}px ${paper.height}px; };
       canvas {
-        page-break-before: auto;        
+        page-break-before: auto;
         page-break-after: always;
         image-rendering: pixelated;
       };
