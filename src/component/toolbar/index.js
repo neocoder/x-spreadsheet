@@ -12,8 +12,6 @@ import Clearformat from './clearformat';
 import Paintformat from './paintformat';
 import TextColor from './text_color';
 import FillColor from './fill_color';
-import FontSize from './font_size';
-import Font from './font';
 import Format from './format';
 import Formula from './formula';
 import Freeze from './freeze';
@@ -98,11 +96,6 @@ export default class Toolbar {
       buildDivider(),
       [
         this.formatEl = new Format(),
-      ],
-      buildDivider(),
-      [
-        this.fontEl = new Font(),
-        this.fontSizeEl = new FontSize(),
       ],
       buildDivider(),
       [
@@ -194,8 +187,12 @@ export default class Toolbar {
     // console.log('selectedCell:', style, cell);
     const { font, format } = style;
     this.formatEl.setState(format);
-    this.fontEl.setState(font.name);
-    this.fontSizeEl.setState(font.size);
+    if (this.fontEl) {
+      this.fontEl.setState(font.name);
+    }
+    if (this.fontSizeEl) {
+      this.fontSizeEl.setState(font.size);
+    }
     this.boldEl.setState(font.bold);
     this.italicEl.setState(font.italic);
     this.underlineEl.setState(style.underline);
