@@ -26,7 +26,16 @@ function inches2px(inc) {
   return parseInt(96 * inc, 10);
 }
 
+function addNoZContext() {
+  document.body.classList.add(`${cssPrefix}-no-z-context`);
+}
+
+function removeNoZContext() {
+  document.body.classList.remove(`${cssPrefix}-no-z-context`);
+}
+
 function btnClick(type) {
+  removeNoZContext();
   if (type === 'cancel') {
     this.el.hide();
   } else {
@@ -170,12 +179,12 @@ export default class Print {
       yoffset += yo;
       this.contentEl.child(h('div', `${cssPrefix}-canvas-card-wraper`).child(wrap.child(canvas)));
     }
-    document.body.classList.add(`${cssPrefix}-no-z-context`);
+
+    addNoZContext();
     this.el.show();
   }
 
   toPrint() {
-    document.body.classList.remove(`${cssPrefix}-no-z-context`);
     this.el.hide();
     const { paper } = this;
     const iframe = h('iframe', '').hide();
