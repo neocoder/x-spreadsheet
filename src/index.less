@@ -200,16 +200,18 @@ body {
   }
 
   &.bottom-left {
-    .@{css-prefix}-dropdown-content {
+    & > .@{css-prefix}-dropdown-content {
       top: calc(~'100% + 5px');
-      left: 0;
+			left: 0;
+			right: auto;
     }
   }
 
   &.bottom-right {
-    .@{css-prefix}-dropdown-content {
+    & > .@{css-prefix}-dropdown-content {
       top: calc(~'100% + 5px');
-      right: 0;
+			right: 0;
+			left: auto;
     }
   }
 
@@ -457,8 +459,7 @@ body {
 }
 
 .x-spreadsheet-item,
-.x-spreadsheet-header,
-{
+.x-spreadsheet-header {
 
   &.state {
     padding-left: 35px!important;
