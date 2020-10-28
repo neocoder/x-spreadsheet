@@ -2,7 +2,6 @@
 
 import Align from './align';
 import Valign from './valign';
-import Autofilter from './autofilter';
 import Bold from './bold';
 import Italic from './italic';
 import Strike from './strike';
@@ -120,7 +119,6 @@ export default class Toolbar {
       buildDivider(),
       [
         this.freezeEl = new Freeze(),
-        this.autofilterEl = new Autofilter(),
         this.formulaEl = new Formula(),
         this.moreEl = new More(),
       ],
@@ -182,7 +180,6 @@ export default class Toolbar {
     this.undoEl.setState(!data.canUndo());
     this.redoEl.setState(!data.canRedo());
     this.mergeEl.setState(data.canUnmerge(), !data.selector.multiple());
-    this.autofilterEl.setState(!data.canAutofilter());
     // this.mergeEl.disabled();
     // console.log('selectedCell:', style, cell);
     const { font, format } = style;
