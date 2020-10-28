@@ -74,6 +74,10 @@ body {
   }
 }
 
+body.@{css-prefix}-no-scroll {
+	overflow: hidden !important;
+}
+
 body.@{css-prefix}-no-z-context .@{css-prefix} {
 	z-index: auto;
 }
@@ -956,7 +960,7 @@ body.@{css-prefix}-no-z-context .@{css-prefix} {
 // form end
 .@{css-prefix}-dimmer {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0 !important;
   left: 0 !important;
   width: 100%;
