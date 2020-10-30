@@ -49,8 +49,8 @@ class SelectorElement {
     this.clipboardEl.offset({
       left,
       top,
-      width: width - 5,
-      height: height - 5,
+      width,
+      height,
     });
   }
 
