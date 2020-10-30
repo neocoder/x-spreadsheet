@@ -17,7 +17,7 @@ import Freeze from './freeze';
 import Merge from './merge';
 import Redo from './redo';
 import Undo from './undo';
-import Print from './print';
+// import Print from './print';
 import Textwrap from './textwrap';
 import More from './more';
 
@@ -88,7 +88,7 @@ export default class Toolbar {
       [
         this.undoEl = new Undo(),
         this.redoEl = new Redo(),
-        new Print(),
+        // new Print(),
         this.paintformatEl = new Paintformat(),
         this.clearformatEl = new Clearformat(),
       ],
