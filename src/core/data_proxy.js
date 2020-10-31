@@ -284,6 +284,9 @@ function getCellColByX(x, scrollOffsetx) {
   return { ci: ci - 1, left, width };
 }
 
+export const ST_READ = 'ST_READ';
+export const ST_EDIT = 'ST_EDIT';
+
 export default class DataProxy {
   constructor(name, settings = {}) {
     this.settings = settings;
@@ -311,6 +314,7 @@ export default class DataProxy {
     this.unsortedRowMap = new Map();
     this.currentEditRowIdx = null;
     this.currentEditColIdx = null;
+    this.state = ST_READ;
   }
 
   addValidation(mode, ref, validator) {
@@ -899,6 +903,7 @@ export default class DataProxy {
     if (this.currentEditRowIdx === null && this.currentEditColIdx === null) {
       this.currentEditRowIdx = rowIdx;
       this.currentEditColIdx = colIdx;
+      this.state = ST_EDIT;
       return true;
     }
     return false;
@@ -907,6 +912,7 @@ export default class DataProxy {
   stopEditing() {
     this.currentEditRowIdx = null;
     this.currentEditColIdx = null;
+    this.state = ST_READ;
   }
 
   // state: input | finished

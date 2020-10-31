@@ -1,4 +1,6 @@
 /* global window, document */
+import { SUPPORTED_FORMULAS } from 'hot-formula-parser';
+
 import { h } from './element';
 import { bind, mouseMoveUp, bindTouch } from './event';
 import { t } from '../locale/locale';
@@ -14,8 +16,6 @@ import ModalValidation from './modal_validation';
 import SortFilter from './sort_filter';
 import { xtoast } from './message';
 import { cssPrefix } from '../config';
-
-import { SUPPORTED_FORMULAS } from 'hot-formula-parser';
 
 /**
  * @desc throttle fn
@@ -962,6 +962,10 @@ export default class Sheet {
     if (eventMap.has(eventName)) {
       eventMap.get(eventName).call(this, ...args);
     }
+  }
+
+  isEditing() {
+    return this.sheet.isEditing();
   }
 
   resetData(data) {

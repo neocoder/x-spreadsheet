@@ -1,6 +1,6 @@
 /* global window, document */
 import { h } from './component/element';
-import DataProxy from './core/data_proxy';
+import DataProxy, { ST_EDIT } from './core/data_proxy';
 import Sheet from './component/sheet';
 import Bottombar from './component/bottombar';
 import { cssPrefix } from './config';
@@ -54,6 +54,10 @@ class Spreadsheet {
     this.bottombar.addItem(n, active);
     this.sheetIndex += 1;
     return d;
+  }
+
+  isEditing() {
+    return this.datas.find(d => d.state === ST_EDIT);
   }
 
   deleteSheet() {
